@@ -1,0 +1,31 @@
+def format_duration(seconds):
+    if seconds == 0:
+        return "now"
+
+    units = [
+        ("year", 365 * 24 * 60 * 60),
+        ("day", 24 * 60 * 60),
+        ("hour", 60 * 60),
+        ("minute", 60),
+        ("second", 1)
+    ]
+
+    parts = []
+
+    for name, value in units:
+        count = seconds // value
+        seconds = seconds % value
+
+        if count > 0:
+            if count == 1:
+                parts.append(f"{count} {name}")
+            else:
+                parts.append(f"{count} {name}s")
+
+    if len(parts) == 1:
+        return parts[0]
+
+    return ", ".join(parts[:-1]) + " and " + parts[-1]
+
+
+# https://www.codewars.com/kata/52742f58faf5485cae000b9a/train/python
